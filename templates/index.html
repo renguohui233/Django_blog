@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}首页 {% endblock %}
+
+{% block main %}
+    <h1>博客列表</h1>
+    <div class="row row-cols-2 row-gap-2">
+    {% for blog in blogs %}
+
+
+
+        <div class="col">
+            {#自动帮忙布局 分两列#}
+            <div class="card ">
+                <div class="card-header">
+                    <a href="{% url 'blog:details' blog_id=blog.id %}">{{ blog.title }}</a>
+                </div>
+                <div class="card-body" style="height: 125px">
+
+                    <p class="card-text">{{ blog.content|striptags|truncatechars:200 }}</p>
+
+                </div>
+                <div class="card-footer text-body-secondary d-flex justify-content-between">
+                    <div>
+                        <img src="{% static 'image/lena.jpg' %}" class="rounded-circle" alt="avatar" width="30"
+                             height="30">
+                        {{ blog.author.name }}
+                    </div>
+                    <div>
+                        time: {{ blog.pub_time|date:"Y年m月d日 h时i分" }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
